@@ -1,0 +1,15 @@
+1、问题：CentOS/Euler OS安装最新的salt失败，报“Error: Package: salt-2019.2.0-1.el7.noarch (salt-latest)
+Requires: python2-futures >= 2.0 来自 <https://github.com/saltstack/salt/issues/51829> "
+   原因： 因为我是根据salt官方文档的步骤，在系统上执行
+sudo yum install https://repo.saltstack.com/yum/redhat/salt-repo-latest.el7.noarch.rpm 
+
+来自 <https://repo.saltstack.com/#rhel> 
+拉最新的salt，但系统上在安装salt依赖的包时，有些找不到。因此，不能采用官方文档来，需要先安装epel(Extra Packages for Enterprise Linux)wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo。
+执行后，记得去/etc/yum.repos.d/目录中删掉salt-latest.repo. 然后再清除下yum  database(yum clean all)。再执行安装salt即可。
+
+如果salt安装失败提示“
+Failing package is: python-jinja2-2.7.2-2.el7.noarch
+GPG Keys are configured as: https://repo.saltstack.com/yum/rhel7/SALTSTACK-GPG-KEY.pub
+
+来自 <https://github.com/saltstack/salt/issues/28144> 
+”也是原因一样，由于采用的源混乱，导致。按上述说明解决即可。
